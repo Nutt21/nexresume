@@ -1,0 +1,6 @@
+PyYAML
+pdfplumber
+PyPDF2
+openai
+tqdm
+python-dotenv

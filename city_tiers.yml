@@ -1,0 +1,60 @@
+# Indian city tier mapping
+# Tier 1 (Metro cities)
+Mumbai: 1
+Delhi: 1
+Bangalore: 1
+Chennai: 1
+Hyderabad: 1
+Pune: 1
+Kolkata: 1
+Ahmedabad: 1
+
+# Tier 2 (Major cities)
+Coimbatore: 2
+Trichy: 2
+Tiruchirappalli: 2
+Madurai: 2
+Mysore: 2
+Mysuru: 2
+Kochi: 2
+Kozhikode: 2
+Thiruvananthapuram: 2
+Vijayawada: 2
+Visakhapatnam: 2
+Indore: 2
+Bhopal: 2
+Jaipur: 2
+Lucknow: 2
+Kanpur: 2
+Chandigarh: 2
+Ludhiana: 2
+Amritsar: 2
+Nagpur: 2
+Nashik: 2
+Aurangabad: 2
+Surat: 2
+Vadodara: 2
+Rajkot: 2
+Bhubaneswar: 2
+Cuttack: 2
+Guwahati: 2
+Patna: 2
+Ranchi: 2
+Bhubaneshwar: 2
+
+# Tier 3 (Smaller cities)
+Tirunelveli: 3
+Salem: 3
+Erode: 3
+Tiruppur: 3
+Karur: 3
+Namakkal: 3
+Dindigul: 3
+Theni: 3
+Virudhunagar: 3
+Sivakasi: 3
+Ramanathapuram: 3
+Thoothukudi: 3
+Tuticorin: 3
+Kanyakumari: 3
+Nagercoil: 3

@@ -1,0 +1,28 @@
+{
+  "matched_required_skills": [],
+  "missing_required_skills": [
+    "rest apis",
+    "sql",
+    "git",
+    "debugging"
+  ],
+  "matched_optional_skills": [
+    "fastapi"
+  ],
+  "education_match": true,
+  "experience_match": false,
+  "keywords_matched": [],
+  "soft_skills_match": [],
+  "resume_summary": "AI/ML Engineer with experience in developing AI-powered solutions and chatbots, skilled in Python and FastAPI.",
+  "match_score": 0,
+  "city_tier_match": false,
+  "longest_tenure_months": 7,
+  "final_score": 21,
+  "city_tier_detected": 2,
+  "postprocessing_details": {
+    "base_final_score": 20.0,
+    "city_tier_bonus": 0,
+    "tenure_bonus": 1.1666666666666667,
+    "gap_penalty": 0
+  }
+}

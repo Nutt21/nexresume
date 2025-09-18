@@ -1,0 +1,129 @@
+### 📌 To-Do List for Assessment
+
+#### 1. **Project Setup**
+
+* [ ] Create folder structure:
+
+  ```
+  nexresume/
+    ├── job_description.yml
+    ├── resumes/        # contains .pdf/.txt resumes
+    ├── reports/        # JSON outputs go here
+    ├── main.py         # main entry script
+    ├── utils.py        # helper functions
+    ├── requirements.txt
+  ```
+* [ ] Add dependencies: `PyYAML`, `PyPDF2`, `pdfplumber`, `openai`, `tqdm`.
+
+---
+
+#### 2. **Job Description Loader**
+
+* [ ] Parse `job_description.yml` with PyYAML.
+* [ ] Validate mandatory fields (job title, skills, city tier, etc.).
+* [ ] Normalize fields (skills lists, experience, etc.).
+
+---
+
+#### 3. **Resume Loader**
+
+* [ ] Iterate through `resumes/` folder.
+* [ ] Support `.pdf` (use `pdfplumber` or `PyPDF2`) and `.txt`.
+* [ ] Extract plain text content for each resume.
+* [ ] Handle errors (empty/malformed resumes → skip gracefully).
+
+---
+
+#### 4. **Prompt Construction**
+
+* [ ] Design a **structured system prompt**:
+
+  * Compare JD fields with resume.
+  * Ask GPT to return **strict JSON** with required fields:
+
+    * matched\_required\_skills
+    * missing\_required\_skills
+    * matched\_optional\_skills
+    * education\_match
+    * experience\_match
+    * keywords\_matched
+    * soft\_skills\_match
+    * resume\_summary
+    * match\_score (0–1 float)
+    * city\_tier\_match
+    * longest\_tenure\_months
+    * final\_score (0–100 int)
+
+---
+
+#### 5. **Language Model Integration**
+
+* [ ] Call **OpenAI GPT (chat/completions API)** with structured prompt.
+* [ ] Add retry logic + JSON parsing guard (ensure consistent output).
+* [ ] Handle token limits (truncate very long resumes).
+
+---
+
+#### 6. **Report Generation**
+
+* [ ] Save one JSON report per resume → `reports/<candidate_name>.json`.
+* [ ] Ensure candidate name is extracted from resume (or filename fallback).
+* [ ] Validate that JSON is parseable.
+
+---
+
+#### 7. **Batch Processing**
+
+* [ ] Loop through all resumes in one run.
+* [ ] Ensure program continues on errors.
+* [ ] Show progress bar (`tqdm`).
+
+---
+
+#### 8. **Scoring Logic (LLM + Post-Processing)**
+
+* [ ] Add logic for:
+
+  * City tier weightage (Tier-3 > Tier-2 > Tier-1).
+  * Longest tenure = bonus points (job stability).
+  * Penalize long job gaps beyond `Maximum_Job_Gap_Months`.
+* [ ] Ensure LLM’s `final_score` reflects these rules.
+
+---
+
+#### 9. **Testing**
+
+* [ ] Use provided sample JD + mock resumes.
+* [ ] Verify JSON reports align with required fields.
+* [ ] Test with:
+
+  * Missing education
+  * Resume with large job gaps
+  * Tier-3 city resume
+
+---
+
+#### 10. **Deliverables Prep**
+
+* [ ] `main.py` (entry script).
+* [ ] Sample `job_description.yml`.
+* [ ] `resumes/` with 2–3 sample resumes.
+* [ ] Generated `reports/` JSONs.
+* [ ] `README.md` with:
+
+  * Setup instructions
+  * How to run script
+  * Dependencies
+
+---
+
+👉 Once we do this, you’ll be **ready for the discussion call** since they’ll likely ask about:
+
+* **Prompt design reasoning**
+* **Scoring logic**
+* **Error handling for malformed resumes**
+* **Why JSON structure is enforced**
+
+---
+
+Do you want me to start by **drafting the folder structure + boilerplate code (job loader + resume parser)** so you have a base to build on?
