@@ -103,9 +103,11 @@ def load_job_description(path: str) -> JobDescription:
     # Normalization
     job_title = str(data["job_title"]).strip()
     required_skills = _normalize_skill_list(data.get("required_skills"))
+    # print(required_skills)
     optional_skills = _normalize_skill_list(data.get("optional_skills"))
-
-    city_tier_raw = data.get("city_tier")
+    # print(optional_skills)
+    city_tier_raw = data.get("city_tier") or data.get("City_Tier")
+    # print(city_tier_raw)
     try:
         city_tier = int(city_tier_raw)
         if city_tier not in (1, 2, 3):
@@ -159,6 +161,7 @@ def get_output_json_schema() -> Dict[str, Any]:
             "match_score",
             "city_tier_match",
             "longest_tenure_months",
+            "job_gap_months",
             "final_score",
         ],
         "properties": {
@@ -173,6 +176,7 @@ def get_output_json_schema() -> Dict[str, Any]:
             "match_score": {"type": "number", "minimum": 0.0, "maximum": 1.0},
             "city_tier_match": {"type": "boolean"},
             "longest_tenure_months": {"type": "integer", "minimum": 0},
+            "job_gap_months": {"type": "integer", "minimum": 0},
             "final_score": {"type": "integer", "minimum": 0, "maximum": 100},
         },
     }
@@ -190,7 +194,7 @@ def build_system_prompt(jd: JobDescription) -> str:
         "Return ONLY valid JSON with the following keys: "
         "matched_required_skills, missing_required_skills, matched_optional_skills, "
         "education_match, experience_match, keywords_matched, soft_skills_match, "
-        "resume_summary, match_score, city_tier_match, longest_tenure_months, final_score."
+        "resume_summary, match_score, city_tier_match, longest_tenure_months, job_gap_months, final_score."
     )
     parts: List[str] = [
         "You are a meticulous ATS evaluator.",
@@ -279,18 +283,11 @@ def _slugify(text: str) -> str:
     return text or "candidate"
 
 
-def extract_candidate_name(resume_text: str, filename: Optional[str] = None) -> str:
-    # Try simple pattern at the very top: a name-like line
-    first_lines = "\n".join(resume_text.splitlines()[:5])
-    m = re.search(r"([A-Z][a-z]+\s+[A-Z][a-zA-Z\-']+)", first_lines)
-    if m:
-        return m.group(1).strip()
-    if filename:
-        base = os.path.basename(filename)
-        base = re.sub(r"\.[^.]+$", "", base)
-        base = base.replace("_", " ").replace("-", " ")
-        return base.strip() or "Candidate"
-    return "Candidate"
+def extract_candidate_name(filename: str) -> str:
+    base = os.path.basename(filename)            
+    base = re.sub(r"\.[^.]+$", "", base)           
+    base = base.replace("_", " ").replace("-", " ") #
+    return base.strip() or "Candidate"
 
 
 def save_json_report(report: Dict[str, Any], candidate_name: str, reports_dir: str = "reports") -> str:
@@ -359,6 +356,7 @@ def clamp(value: float, min_value: float, max_value: float) -> float:
 
 def apply_postprocessing_scoring(jd: JobDescription, llm_result: Dict[str, Any]) -> Dict[str, Any]:
     result = dict(llm_result)
+    print(result)
 
     base_score = float(result.get("final_score", 0))
     longest_tenure_months = int(result.get("longest_tenure_months", 0) or 0)
@@ -368,6 +366,7 @@ def apply_postprocessing_scoring(jd: JobDescription, llm_result: Dict[str, Any])
     result["city_tier_detected"] = city_tier_detected
     result["city_tier_match"] = bool(city_tier_match)
     job_gap_months = int(result.get("job_gap_months", 0) or 0)  # optional field if present
+    print(job_gap_months)
 
     adjustments: Dict[str, Any] = {
         "base_final_score": base_score,

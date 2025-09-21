@@ -1,0 +1,34 @@
+{
+  "matched_required_skills": [
+    "python",
+    "rest apis",
+    "git",
+    "debugging"
+  ],
+  "missing_required_skills": [
+    "sql"
+  ],
+  "matched_optional_skills": [
+    "docker",
+    "aws lambda",
+    "flask",
+    "ci/cd pipelines"
+  ],
+  "education_match": true,
+  "experience_match": true,
+  "keywords_matched": 7,
+  "soft_skills_match": true,
+  "resume_summary": "Backend developer with 3+ years of experience building robust web services and APIs using Python. Proven ability to design, develop, and deploy scalable microservices. Experienced in cloud deployments with AWS and maintaining production systems using CI/CD pipelines. Passionate about clean code, mentoring juniors, and contributing to team success.",
+  "match_score": 0.8571428571428571,
+  "city_tier_match": true,
+  "longest_tenure_months": 38,
+  "job_gap_months": 0,
+  "final_score": 95,
+  "city_tier_detected": 2,
+  "postprocessing_details": {
+    "base_final_score": 85.0,
+    "city_tier_bonus": 4,
+    "tenure_bonus": 6.333333333333333,
+    "gap_penalty": 0
+  }
+}

@@ -56,7 +56,7 @@ def main() -> None:
         for item in tqdm(entries):
             text = item["text"]
             filename = item["filename"]
-            candidate = extract_candidate_name(text, filename)
+            candidate = extract_candidate_name(filename)
             if os.getenv("OPENAI_API_KEY"):
                 try:
                     user_prompt = build_user_prompt(text)
